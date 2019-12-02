@@ -1,3 +1,5 @@
+set -e
+
 day=$1
 
 source ./.env
