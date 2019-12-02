@@ -12,18 +12,14 @@ fn calc(noun: usize, verb: usize, commands_raw: String) -> usize {
         let pos = i * 4;
         let opcode = commands[pos];
 
-        if opcode == 1 {
-            let pos1 = commands[pos+1];
-            let pos2 = commands[pos+2];
-            let dest = commands[pos+3];
+        let pos1 = commands[pos+1];
+        let pos2 = commands[pos+2];
+        let dest = commands[pos+3];
 
+        if opcode == 1 {
             commands[dest] = commands[pos1] + commands[pos2];
         }
         else if opcode == 2 {
-            let pos1 = commands[pos+1];
-            let pos2 = commands[pos+2];
-            let dest = commands[pos+3];
-
             commands[dest] = commands[pos1] * commands[pos2];
         }
         else if opcode == 99 {
