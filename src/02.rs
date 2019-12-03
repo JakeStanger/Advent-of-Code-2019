@@ -1,9 +1,7 @@
 use std::io::{stdin, Read};
 use std::process;
 
-fn calc(noun: usize, verb: usize, commands_raw: String) -> usize {
-    let mut commands: Vec<usize> = commands_raw.trim().split(",").map(|cmd| cmd.parse().unwrap()).collect();
-
+fn calc(noun: usize, verb: usize, mut commands: Vec<usize>) -> usize {
     commands[1] = noun;
     commands[2] = verb;
 
@@ -33,17 +31,17 @@ fn calc(noun: usize, verb: usize, commands_raw: String) -> usize {
 fn main() {
     let mut cmd_string = String::new();
     stdin().read_to_string(&mut cmd_string).unwrap();
+    let commands: Vec<usize> = cmd_string.trim().split(",").map(|cmd| cmd.parse().unwrap()).collect();
 
     let desired_output = 19690720;
 
     for noun in 0..99 {
         for verb in 0..99 {
-            let result = calc(noun, verb, cmd_string.clone());
+            let result = calc(noun, verb, commands.clone());
             if result == desired_output {
                 println!("{}", 100 * noun + verb);
                 process::exit(0);
             }
         }
     }
-
 }
