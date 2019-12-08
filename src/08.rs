@@ -30,8 +30,6 @@ fn main() {
             }
         }
 
-        println!("{}", num_zeros);
-
         if num_zeros < fewest_zeros.0 {
             fewest_zeros = (num_zeros, i as usize);
         }
