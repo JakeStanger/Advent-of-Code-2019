@@ -35,10 +35,34 @@ fn main() {
         }
     }
 
+    
+    // part 1
     let layer = &layers[fewest_zeros.1];
 
     let ones: usize = layer.clone().into_iter().filter(|&digit| digit == 1).count();
     let twos: usize = layer.clone().into_iter().filter(|&digit| digit == 2).count();
 
-    println!("{}", ones * twos);
+    println!("p1: {}", ones * twos);
+
+    // part 2
+    println!("\n\n");
+
+    for y in 0..(HEIGHT) {
+        for x in 0..(WIDTH) {
+            for layer in layers.clone() {
+                let pixel = layer[x as usize + ((y * WIDTH) as usize)];
+
+                if pixel !=2 {
+                    print!("{}", match pixel {
+                    0 => "█",
+                    1 => "░",
+                    _ => unreachable!(pixel)
+                    });
+                    break;
+                }
+            }
+        }
+
+        print!("\n");
+    }
 }
