@@ -37,8 +37,8 @@ fn main() {
 
     let layer = &layers[fewest_zeros.1];
 
-    let ones: usize = layer.clone().iter().filter(|digit| **digit == 1).count();
-    let twos: usize = layer.clone().iter().filter(|digit| **digit == 2).count();
+    let ones: usize = layer.clone().iter().filter(|&&digit| digit == 1).count();
+    let twos: usize = layer.clone().iter().filter(|&&digit| digit == 2).count();
 
     println!("{}", ones * twos);
 }
