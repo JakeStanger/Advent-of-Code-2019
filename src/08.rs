@@ -35,7 +35,6 @@ fn main() {
         }
     }
 
-    
     // part 1
     let layer = &layers[fewest_zeros.1];
 
