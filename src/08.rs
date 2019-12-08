@@ -44,9 +44,11 @@ fn main() {
     println!("p1: {}", ones * twos);
 
     // part 2
-    println!("\n\n");
+    println!("\n");
 
     for y in 0..(HEIGHT) {
+        print!("█");
+
         for x in 0..(WIDTH) {
             for layer in layers.clone() {
                 let pixel = layer[x as usize + ((y * WIDTH) as usize)];
@@ -62,6 +64,6 @@ fn main() {
             }
         }
 
-        print!("\n");
+        print!("█\n");
     }
 }
