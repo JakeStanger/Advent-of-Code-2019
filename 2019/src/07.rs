@@ -127,12 +127,13 @@ fn main() {
     let commands: Vec<i32> = cmd_string.trim().split(",").map(|cmd| cmd.parse().unwrap()).collect();
 
     let mut max = 0;
-    for a in 0..=4 {
-        for b in (0..=4).filter(|&b| a != b) {
-            for c in (0..=4).filter(|&c| a != c && b != c) {
-                for d in (0..=4).filter(|&d| a != d && b != d && c != d) {
-                    for e in (0..=4).filter(|&e| a != e && b != e && c != e && d != e ) {
-                        max = max.max((0..5).fold(0, |acc, n| run(commands.clone(), ([a, b, c, d, e][n], acc)).unwrap()))
+    for a in 5..=9 {
+        for b in (5..=9).filter(|&b| a != b) {
+            for c in (5..=9).filter(|&c| a != c && b != c) {
+                for d in (5..=9).filter(|&d| a != d && b != d && c != d) {
+                    for e in (5..=9).filter(|&e| a != e && b != e && c != e && d != e ) {
+                        let seq = [a, b, c, d, e];
+                        max = max.max((0..5).fold(0, |acc, n| run(commands.clone(), (seq[n], acc)).unwrap()))
                     }
                 }
             }
