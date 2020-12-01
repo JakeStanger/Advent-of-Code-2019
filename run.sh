@@ -22,6 +22,6 @@ function get_input() {
 }
 
 echo "executing"
-echo -e "\n\n======\n\n"
+echo -e "\n======\n"
 
 get_input | time target/debug/advent-of-code
