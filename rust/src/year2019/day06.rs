@@ -1,9 +1,9 @@
+use std::collections::HashMap;
 use std::io::{stdin, BufRead};
-use std::collections::{HashMap};
 
 fn get_orbits(moon: &String, mut total: i32, pairs: &HashMap<String, String>, end: String) -> i32 {
     if *moon == end {
-        return total
+        return total;
     }
 
     let parent = pairs.get(moon).unwrap();
@@ -12,9 +12,13 @@ fn get_orbits(moon: &String, mut total: i32, pairs: &HashMap<String, String>, en
     get_orbits(parent, total, &pairs, end)
 }
 
-fn get_orbiting(moon: &String, mut path: Vec<String>, pairs: &HashMap<String, String>) -> Vec<String> {
+fn get_orbiting(
+    moon: &String,
+    mut path: Vec<String>,
+    pairs: &HashMap<String, String>,
+) -> Vec<String> {
     if moon == "COM" {
-        return path
+        return path;
     }
 
     let parent = pairs.get(moon).unwrap();
@@ -23,20 +27,22 @@ fn get_orbiting(moon: &String, mut path: Vec<String>, pairs: &HashMap<String, St
     get_orbiting(parent, path, &pairs)
 }
 
-fn main() {
+pub fn run() {
     let stdin = stdin();
 
     let mut pairs: HashMap<String, String> = HashMap::new();
 
-    stdin.lock().lines()
-    .map(|line| line.unwrap())
-    .for_each(|line| {
-        let mut bodies = line.split(')');
-        let parent = bodies.next().unwrap().to_string();
-        let moon = bodies.next().unwrap().to_string();
+    stdin
+        .lock()
+        .lines()
+        .map(|line| line.unwrap())
+        .for_each(|line| {
+            let mut bodies = line.split(')');
+            let parent = bodies.next().unwrap().to_string();
+            let moon = bodies.next().unwrap().to_string();
 
-        pairs.insert(moon, parent);
-    });
+            pairs.insert(moon, parent);
+        });
 
     let mut total: i32 = 0;
     for moon in pairs.keys() {
@@ -65,6 +71,4 @@ fn main() {
 
     println!("p1: {}", total);
     println!("p2: {}", shortest);
-
-
 }

@@ -7,8 +7,7 @@ fn calc_fuel(mass: usize) -> usize {
 fn fuel_fuel(fuel: usize) -> usize {
     if (fuel / 3) > 1 {
         fuel_fuel(calc_fuel(fuel)) + fuel
-    }
-    else {
+    } else {
         fuel
     }
 }

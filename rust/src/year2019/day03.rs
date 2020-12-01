@@ -1,17 +1,25 @@
+use std::collections::{HashMap, HashSet};
 use std::io::{stdin, BufRead};
-use std::collections::{HashSet, HashMap};
 
 fn get_between(dir: char, distance: &i32, current: (i32, i32)) -> Vec<(i32, i32)> {
     match dir {
-        'U' => (1..=*distance).map(|i| (current.0, current.1 + i)).collect(),
-        'D' => (1..=*distance).map(|i| (current.0, current.1 - i)).collect(),
-        'L' => (1..=*distance).map(|i| (current.0 - i, current.1)).collect(),
-        'R' => (1..=*distance).map(|i| (current.0 + i, current.1)).collect(),
-        _ => panic!()
+        'U' => (1..=*distance)
+            .map(|i| (current.0, current.1 + i))
+            .collect(),
+        'D' => (1..=*distance)
+            .map(|i| (current.0, current.1 - i))
+            .collect(),
+        'L' => (1..=*distance)
+            .map(|i| (current.0 - i, current.1))
+            .collect(),
+        'R' => (1..=*distance)
+            .map(|i| (current.0 + i, current.1))
+            .collect(),
+        _ => panic!(),
     }
 }
 
-fn main() {
+pub fn run() {
     let stdin = stdin();
 
     let lines = stdin.lock().lines();
@@ -28,16 +36,17 @@ fn main() {
         let instructions = line_value.split(",");
 
         let mut visited: Vec<(i32, i32)> = vec![(0, 0)];
-        let mut steps = 0; 
+        let mut steps = 0;
 
         for instruction in instructions {
             let direction = instruction.chars().next().unwrap();
             let distance: &i32 = &instruction[1..instruction.len()].parse::<i32>().unwrap();
 
-            let last_visited = visited[visited.len()-1];
+            let last_visited = visited[visited.len() - 1];
 
-            let mut current_visited: Vec<(i32, i32)> = get_between(direction, distance, last_visited);
-            
+            let current_visited: Vec<(i32, i32)> =
+                get_between(direction, distance, last_visited);
+
             visited.append(&mut current_visited.clone());
 
             for point in current_visited {
@@ -47,9 +56,8 @@ fn main() {
                     all_visited.insert(point);
                     if line_num == 0 {
                         distances.insert(point, steps);
-                    } 
-                }
-                else if line_num == 1 { 
+                    }
+                } else if line_num == 1 {
                     let dist = point.0.abs() + point.1.abs();
                     if dist < shortest && dist != 0 {
                         shortest = dist;
@@ -61,7 +69,6 @@ fn main() {
                             shortest_steps = step_dist;
                         }
                     }
-                    
                 }
             }
         }

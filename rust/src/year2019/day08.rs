@@ -3,14 +3,18 @@ use std::io::{stdin, Read};
 const WIDTH: u32 = 25;
 const HEIGHT: u32 = 6;
 
-fn main() {
+pub fn run() {
     let mut image_string = String::new();
     stdin().read_to_string(&mut image_string).unwrap();
 
-    let image: Vec<u32> = image_string.trim().chars().map(|pix| pix.to_digit(10).unwrap()).collect();
+    let image: Vec<u32> = image_string
+        .trim()
+        .chars()
+        .map(|pix| pix.to_digit(10).unwrap())
+        .collect();
     let num_layers = image.len() as u32 / (WIDTH * HEIGHT);
 
-    let mut layers: Vec<Vec<u32>> = Vec::new();  
+    let mut layers: Vec<Vec<u32>> = Vec::new();
 
     let mut fewest_zeros: (u32, usize) = (u32::max_value(), 0);
 
@@ -38,8 +42,16 @@ fn main() {
     // part 1
     let layer = &layers[fewest_zeros.1];
 
-    let ones: usize = layer.clone().into_iter().filter(|&digit| digit == 1).count();
-    let twos: usize = layer.clone().into_iter().filter(|&digit| digit == 2).count();
+    let ones: usize = layer
+        .clone()
+        .into_iter()
+        .filter(|&digit| digit == 1)
+        .count();
+    let twos: usize = layer
+        .clone()
+        .into_iter()
+        .filter(|&digit| digit == 2)
+        .count();
 
     println!("p1: {}", ones * twos);
 
@@ -53,12 +65,15 @@ fn main() {
             for layer in layers.clone() {
                 let pixel = layer[x as usize + ((y * WIDTH) as usize)];
 
-                if pixel !=2 {
-                    print!("{}", match pixel {
-                    0 => "█",
-                    1 => "░",
-                    _ => unreachable!(pixel)
-                    });
+                if pixel != 2 {
+                    print!(
+                        "{}",
+                        match pixel {
+                            0 => "█",
+                            1 => "░",
+                            _ => unreachable!(pixel),
+                        }
+                    );
                     break;
                 }
             }
