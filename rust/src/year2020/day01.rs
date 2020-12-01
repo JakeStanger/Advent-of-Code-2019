@@ -1,6 +1,6 @@
 use std::io::{stdin, BufRead};
 
-const GOAL: i32 = 99920044;
+const GOAL: i32 = 2020;
 
 pub fn run() {
     let stdin = stdin();
