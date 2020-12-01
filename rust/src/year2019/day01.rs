@@ -13,7 +13,7 @@ fn fuel_fuel(fuel: usize) -> usize {
     }
 }
 
-fn main() {
+pub fn run() {
     let stdin = stdin();
 
     let mut total = 0;
