@@ -1,3 +1,5 @@
+extern crate regex;
+
 mod year2019;
 mod year2020;
 
@@ -18,7 +20,10 @@ fn main() {
         (2019, 7) => year2019::day07::run(),
         (2019, 8) => year2019::day08::run(),
 
+        // 2020
         (2020, 1) => year2020::day01::run(),
+        (2020, 2) => year2020::day02::run(),
+
         (_, _) => panic!("invalid year/day"),
     }
 }

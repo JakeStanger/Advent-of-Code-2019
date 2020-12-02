@@ -2,6 +2,9 @@
 name="advent-of-code"
 version="1.0.0"
 
+[dependencies]
+regex="1.4.2"
+
 [[bin]]
 name="advent-of-code"
 path="rust/src/main.rs"

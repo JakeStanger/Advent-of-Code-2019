@@ -44,8 +44,7 @@ pub fn run() {
 
             let last_visited = visited[visited.len() - 1];
 
-            let current_visited: Vec<(i32, i32)> =
-                get_between(direction, distance, last_visited);
+            let current_visited: Vec<(i32, i32)> = get_between(direction, distance, last_visited);
 
             visited.append(&mut current_visited.clone());
 
