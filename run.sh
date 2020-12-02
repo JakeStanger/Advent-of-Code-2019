@@ -15,13 +15,16 @@ function get_input() {
   if [ ! -f "$input_file" ]; then
     mkdir -p "$input_folder"
     source ./.env
-    curl -s "https://adventofcode.com/$YEAR/DAY/$((DAY))/input" -H "Cookie:$SESSION" > $input_file
+    >&2 echo "downloading input from https://adventofcode.com/$YEAR/day/$((DAY))/input"
+    curl -s "https://adventofcode.com/$YEAR/day/$((DAY))/input" -H "Cookie:$SESSION" > $input_file
   fi
 
   cat "$input_file"
 }
 
-echo "executing"
-echo -e "\n======\n"
+input=$(get_input)
 
-get_input | time target/debug/advent-of-code
+echo "executing"
+echo -e "\n=============================================================================================\n"
+
+echo "$input" | time target/debug/advent-of-code
