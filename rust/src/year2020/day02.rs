@@ -26,7 +26,7 @@ pub fn run() {
             let pos2 = max - 1;
 
             let char1 = password.as_bytes()[pos1];
-            let char2 =  password.as_bytes()[pos2];
+            let char2 = password.as_bytes()[pos2];
 
             (char1 == letter as u8) ^ (char2 == letter as u8)
         })
