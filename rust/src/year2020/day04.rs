@@ -73,9 +73,6 @@ pub fn run() {
             let pid = data.get("pid").unwrap();
             let valid_pid = re_pid.captures(pid).is_some();
 
-            println!("{:?}", data);
-            println!("{} {} {} {} {} {} {}\n\n", valid_birth_year, valid_issue_year, valid_expiration_year, valid_height, valid_hair_colour, valid_eye_colour, valid_pid);
-
             valid_birth_year
                 && valid_issue_year
                 && valid_expiration_year
