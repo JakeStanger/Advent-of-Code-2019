@@ -40,7 +40,8 @@ pub fn run() {
     let id = ids
         .iter()
         .find(|&id| !ids.contains(&(id + 1)) && ids.contains(&(id + 2)))
-        .unwrap() + 1;
+        .unwrap()
+        + 1;
 
     println!("{:?}", id);
 }
