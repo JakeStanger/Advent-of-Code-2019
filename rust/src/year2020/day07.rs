@@ -7,7 +7,6 @@ use regex::Regex;
 struct Bag {
     desc: String,
     color: String,
-    // count: usize
 }
 
 impl PartialEq for Bag {
@@ -16,19 +15,22 @@ impl PartialEq for Bag {
     }
 }
 
-fn get_containing<'a>(
-    bag: &'a Bag,
-    contained_by: &'a HashMap<Bag, Vec<Bag>>,
-    mut containing: &mut HashSet<&'a Bag>,
-) {
-    containing.insert(&bag);
+struct Count(usize);
 
-    let bag_containing = contained_by.get(&bag);
+fn get_containing(
+    bag: &(Bag, usize),
+    containing: &HashMap<Bag, Vec<(Bag, usize)>>,
+    // count: &mut Count,
+) -> usize {
+    let bag_containers = containing.get(&bag.0);
 
-    if let Some(bag_containing) = bag_containing {
-        bag_containing
+    if let Some(bag_containers) = bag_containers {
+        bag_containers
             .iter()
-            .for_each(|parent_bag| get_containing(parent_bag, &contained_by, &mut containing));
+            .map(|child_bag| child_bag.1 + child_bag.1 * get_containing(&child_bag, &containing))
+            .sum()
+    } else {
+        0
     }
 }
 
@@ -36,7 +38,6 @@ pub fn run() {
     let target_bag: Bag = Bag {
         desc: "shiny".to_string(),
         color: "gold".to_string(),
-        // count: 0
     };
 
     let mut input = String::new();
@@ -45,7 +46,8 @@ pub fn run() {
     let re_target_bag = Regex::new(r"(\w*) (\w*) bags").unwrap();
     let re_contents_bag = Regex::new(r"(\d) (\w*) (\w*) bags?").unwrap();
 
-    let mut contained_by = HashMap::new();
+    let mut containing = HashMap::new();
+
     input
         .split("\n")
         .filter(|line| line.len() > 0)
@@ -56,27 +58,27 @@ pub fn run() {
             let target = Bag {
                 desc: target_raw[1].to_string(),
                 color: target_raw[2].to_string(),
-                // count: 0
             };
 
             re_contents_bag
                 .captures_iter(main_segments[1])
                 .for_each(|bag_raw| {
                     let bag = Bag {
-                        // count: 0,
                         desc: bag_raw[2].to_string(),
                         color: bag_raw[3].to_string(),
                     };
 
-                    contained_by.entry(bag).or_insert(vec![]).push(Bag {
-                        desc: target.desc.clone(),
-                        color: target.color.clone(),
-                        // count: bag_raw[1].parse().unwrap_or(0)
-                    });
+                    containing
+                        .entry(Bag {
+                            desc: target.desc.clone(),
+                            color: target.color.clone(),
+                        })
+                        .or_insert(vec![])
+                        .push((bag, bag_raw[1].parse::<usize>().unwrap_or(0)));
                 })
         });
 
-    let mut containing = HashSet::new();
-    get_containing(&target_bag, &contained_by, &mut containing);
-    println!("{}", containing.len() - 1);
+    let count = get_containing(&(target_bag, 0), &containing);
+
+    println!("{}", count);
 }
