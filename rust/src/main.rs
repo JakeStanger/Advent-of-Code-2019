@@ -29,6 +29,7 @@ fn main() {
         (2020, 6) => year2020::day06::run(),
         (2020, 7) => year2020::day07::run(),
         (2020, 8) => year2020::day08::run(),
+        (2020, 9) => year2020::day09::run(),
 
         (_, _) => panic!("invalid year/day"),
     }
