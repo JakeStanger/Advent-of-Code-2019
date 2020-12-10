@@ -4,7 +4,7 @@ use std::io::{stdin, Read};
 const PREAMBLE_LENGTH: usize = 25;
 
 fn get_possible_sums(input: &Vec<u64>, index: usize) -> HashSet<u64> {
-    let preamble = &input[index-PREAMBLE_LENGTH..index];
+    let preamble = &input[index - PREAMBLE_LENGTH..index];
 
     let possible_sums: HashSet<u64> = preamble
         .iter()
@@ -40,11 +40,34 @@ pub fn run() {
 
     let numbers = &input[PREAMBLE_LENGTH..];
 
-    let invalid = numbers
+    // part 1
+    let invalid = *numbers
         .iter()
         .enumerate()
         .find(|&num| !get_possible_sums(&input, num.0 + PREAMBLE_LENGTH).contains(num.1))
-        .unwrap();
+        .unwrap().1;
 
-    println!("{}", invalid.1);
+    println!("pt1: {}", invalid);
+
+    let answer: u64 = numbers.iter().enumerate().find_map(|num1| {
+        let num2s = &numbers[num1.0..];
+
+        let mut contiguous: Vec<u64> = Vec::new();
+        let mut sum = 0;
+
+        for num2 in num2s {
+            if sum >= invalid {
+                break
+            }
+
+            sum += num2;
+            contiguous.push(*num2);
+        }
+
+        if sum == invalid {
+            Some(contiguous.iter().min().unwrap() + contiguous.iter().max().unwrap())
+        } else { None }
+    }).unwrap();
+
+    println!("{}", answer);
 }
