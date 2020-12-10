@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{HashMap};
 use std::io::{stdin, Read};
 
 use regex::Regex;
@@ -14,8 +14,6 @@ impl PartialEq for Bag {
         self.desc == other.desc && self.color == other.color
     }
 }
-
-struct Count(usize);
 
 fn get_containing(
     bag: &(Bag, usize),
