@@ -1,4 +1,4 @@
-use std::collections::{HashMap};
+use std::collections::HashMap;
 use std::io::{stdin, Read};
 
 use regex::Regex;
