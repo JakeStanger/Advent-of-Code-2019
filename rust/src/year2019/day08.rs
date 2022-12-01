@@ -71,7 +71,7 @@ pub fn run() {
                         match pixel {
                             0 => "█",
                             1 => "░",
-                            _ => unreachable!(pixel),
+                            _ => unreachable!("{}", pixel),
                         }
                     );
                     break;

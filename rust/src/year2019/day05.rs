@@ -128,7 +128,7 @@ pub fn run() {
             OP_HLT => {
                 break;
             }
-            _ => unreachable!(opcode),
+            _ => unreachable!("{}", opcode),
         }
     }
 }

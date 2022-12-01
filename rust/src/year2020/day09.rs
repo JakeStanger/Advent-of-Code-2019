@@ -45,29 +45,36 @@ pub fn run() {
         .iter()
         .enumerate()
         .find(|&num| !get_possible_sums(&input, num.0 + PREAMBLE_LENGTH).contains(num.1))
-        .unwrap().1;
+        .unwrap()
+        .1;
 
     println!("pt1: {}", invalid);
 
-    let answer: u64 = numbers.iter().enumerate().find_map(|num1| {
-        let num2s = &numbers[num1.0..];
+    let answer: u64 = numbers
+        .iter()
+        .enumerate()
+        .find_map(|num1| {
+            let num2s = &numbers[num1.0..];
 
-        let mut contiguous: Vec<u64> = Vec::new();
-        let mut sum = 0;
+            let mut contiguous: Vec<u64> = Vec::new();
+            let mut sum = 0;
 
-        for num2 in num2s {
-            if sum >= invalid {
-                break
+            for num2 in num2s {
+                if sum >= invalid {
+                    break;
+                }
+
+                sum += num2;
+                contiguous.push(*num2);
             }
 
-            sum += num2;
-            contiguous.push(*num2);
-        }
-
-        if sum == invalid {
-            Some(contiguous.iter().min().unwrap() + contiguous.iter().max().unwrap())
-        } else { None }
-    }).unwrap();
+            if sum == invalid {
+                Some(contiguous.iter().min().unwrap() + contiguous.iter().max().unwrap())
+            } else {
+                None
+            }
+        })
+        .unwrap();
 
     println!("{}", answer);
 }

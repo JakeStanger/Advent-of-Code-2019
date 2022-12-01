@@ -117,7 +117,7 @@ fn run_computer(mut commands: Vec<i32>, input: (i32, i32)) -> Option<i32> {
                 ptr += 4;
             }
             OP_HLT => return None,
-            _ => unreachable!(opcode),
+            _ => unreachable!("{}", opcode),
         }
     }
 }
