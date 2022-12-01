@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 regex="1.4.2"
+itertools = "0.10.5"
 
 [[bin]]
 name="advent-of-code"

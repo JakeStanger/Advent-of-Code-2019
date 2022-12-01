@@ -2,6 +2,7 @@ extern crate regex;
 
 mod year2019;
 mod year2020;
+mod year2022;
 
 use std::env;
 
@@ -30,6 +31,10 @@ fn main() {
         (2020, 7) => year2020::day07::run(),
         (2020, 8) => year2020::day08::run(),
         (2020, 9) => year2020::day09::run(),
+        (2020, 10) => year2020::day10::run(),
+
+        // 2022
+        (2022, 1) => year2022::day01::run(),
 
         (_, _) => panic!("invalid year/day"),
     }
