@@ -7,7 +7,6 @@ pub fn run() {
         .lock()
         .lines()
         .map(|part| part.unwrap())
-        .collect::<Vec<String>>()
         .join("\n")
         .split("\n\n")
         .map(|lines| lines.split('\n').map(|n| n.parse::<u32>().unwrap()))
