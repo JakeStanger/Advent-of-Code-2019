@@ -6,7 +6,7 @@ export YEAR=$1
 export DAY=$2
 
 echo "compiling"
-cargo build --color=always --all --all-targets
+cargo build --color=always --all --all-targets --release
 
 function get_input() {
   input_folder="inputs/$YEAR"
@@ -27,4 +27,4 @@ input=$(get_input)
 echo "executing"
 echo -e "\n=============================================================================================\n"
 
-echo "$input" | time target/debug/advent-of-code
+echo "$input" | time target/release/advent-of-code
