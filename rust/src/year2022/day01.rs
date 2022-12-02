@@ -1,5 +1,4 @@
 use itertools::Itertools;
-use std::cmp::max;
 use std::io::{stdin, BufRead};
 
 pub fn run() {
@@ -10,8 +9,8 @@ pub fn run() {
         .join("\n")
         .split("\n\n")
         .map(|lines| lines.split('\n').map(|n| n.parse::<u32>().unwrap()))
-        .map(|vec| vec.sum())
-        .sorted_by(|a: &u32, b: &u32| b.cmp(a))
+        .map(|vec| vec.sum::<u32>())
+        .sorted_by(|a, b| b.cmp(a))
         .take(3)
         .sum();
 
