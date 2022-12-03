@@ -8,8 +8,8 @@ pub fn run() {
         .map(|part| part.unwrap())
         .join("\n")
         .split("\n\n")
-        .map(|lines| lines.split('\n').map(|n| n.parse::<u32>().unwrap()))
-        .map(|vec| vec.sum::<u32>())
+        .map(|elf| elf.split('\n').map(|c| c.parse::<u32>().unwrap()))
+        .map(|elf| elf.sum::<u32>())
         .sorted_by(|a, b| b.cmp(a))
         .take(3)
         .sum();

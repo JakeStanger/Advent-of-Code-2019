@@ -3,16 +3,10 @@ use std::io::{stdin, Read};
 
 use regex::Regex;
 
-#[derive(Eq, Hash, Debug)]
+#[derive(Debug, Hash, PartialEq, Eq)]
 struct Bag {
     desc: String,
     color: String,
-}
-
-impl PartialEq for Bag {
-    fn eq(&self, other: &Self) -> bool {
-        self.desc == other.desc && self.color == other.color
-    }
 }
 
 fn get_containing(
