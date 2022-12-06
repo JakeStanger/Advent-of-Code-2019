@@ -23,7 +23,7 @@ impl From<&str> for Inventory {
                     .collect::<Vec<_>>()
                     .chunks(CHUNK_SIZE)
                     .enumerate()
-                    .map(|(i, chunk)| (i, *chunk.iter().nth(1).unwrap()))
+                    .map(|(i, chunk)| (i, *chunk.get(1).unwrap()))
                     .filter(|(_, char)| char != &' ')
                     .for_each(|(j, char)| {
                         inventory
