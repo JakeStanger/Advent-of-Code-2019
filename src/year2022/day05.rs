@@ -1,6 +1,5 @@
 use itertools::Itertools;
 use std::collections::{HashMap, VecDeque};
-use std::fmt::{Display, Formatter};
 use std::io::{stdin, BufRead};
 
 #[derive(Debug)]
@@ -24,14 +23,13 @@ impl From<&str> for Inventory {
                     .collect::<Vec<_>>()
                     .chunks(CHUNK_SIZE)
                     .enumerate()
-                    .for_each(|(j, chunk)| {
-                        let char = *chunk.iter().nth(1).unwrap();
-                        if char != ' ' {
-                            inventory
-                                .entry(j + 1)
-                                .or_insert_with(VecDeque::new)
-                                .push_back(char)
-                        }
+                    .map(|(i, chunk)| (i, *chunk.iter().nth(1).unwrap()))
+                    .filter(|(_, char)| char != &' ')
+                    .for_each(|(j, char)| {
+                        inventory
+                            .entry(j + 1)
+                            .or_insert_with(VecDeque::new)
+                            .push_back(char)
                     });
             }
         }
@@ -42,17 +40,25 @@ impl From<&str> for Inventory {
 
 impl Inventory {
     fn move_items(&mut self, instr: Instruction) {
-        for _ in 0..instr.count {
-            let start_stack = self.inventory.get_mut(&instr.start).unwrap();
-            let item = start_stack.pop_front().unwrap();
+        let start_stack = self.inventory.get_mut(&instr.start).unwrap();
 
-            let end_stack = self.inventory.get_mut(&instr.dest).unwrap();
-            end_stack.push_front(item);
-        }
+        let mut moving = (0..instr.count)
+            .map(|_| start_stack.pop_front().unwrap())
+            .collect::<Vec<_>>();
+        moving.reverse();
+
+        let end_stack = self.inventory.get_mut(&instr.dest).unwrap();
+        moving
+            .into_iter()
+            .for_each(|char| end_stack.push_front(char));
     }
 
     fn get_code(&self) -> String {
-        self.inventory.keys().sorted().map(|key| self.inventory.get(key).unwrap().get(0).unwrap()).collect()
+        self.inventory
+            .keys()
+            .sorted()
+            .map(|key| self.inventory.get(key).unwrap().get(0).unwrap())
+            .collect()
     }
 }
 
