@@ -6,9 +6,9 @@ fn to_range(str: &str) -> (u32, u32) {
         .unwrap()
 }
 
-fn engulfs((a1, a2): (u32, u32), (b1, b2): (u32, u32)) -> bool {
-    a1 <= b1 && a2 >= b2
-}
+// fn engulfs((a1, a2): (u32, u32), (b1, b2): (u32, u32)) -> bool {
+//     a1 <= b1 && a2 >= b2
+// }
 
 fn overlaps((a1, a2): (u32, u32), (b1, b2): (u32, u32)) -> bool {
     a1 <= b2 && b1 <= a2
