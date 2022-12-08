@@ -114,11 +114,18 @@ pub fn run() {
 
     const MAX_DIR_SIZE: u32 = 100_000;
 
+    const TOTAL_SPACE: u32 = 70_000_000;
+    const REQUIRED_FREE: u32 = 30_000_000;
+
+    let free_space = TOTAL_SPACE - session.dirs.get(PathBuf::from("/").as_path()).unwrap();
+    let to_free = REQUIRED_FREE - free_space;
+
     let res = session
         .dirs
         .values()
-        .filter(|size| **size <= MAX_DIR_SIZE)
-        .sum::<u32>();
+        .filter(|size| **size >= to_free)
+        .min()
+        .unwrap();
 
     println!("{res}");
 }
