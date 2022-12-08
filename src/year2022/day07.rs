@@ -51,37 +51,19 @@ impl From<&str> for Command {
 }
 
 #[derive(Debug)]
-struct Folder {
-    name: String,
-    // folders: HashMap<String, Folder>,
-    files: Vec<File>,
-}
-
-impl Folder {
-    fn new(name: String) -> Self {
-        Self {
-            name,
-            files: vec![],
-            // folders: HashMap::new()
-        }
-    }
-}
-
-#[derive(Debug)]
 struct File(u32);
 
 #[derive(Debug)]
 enum Item {
-    Folder(Folder),
+    Folder,
     File(u32),
 }
 
 impl From<&str> for Item {
     fn from(str: &str) -> Self {
         if str.starts_with("dir") {
-            Item::Folder(Folder::new(str.split_once(" ").unwrap().1.to_string()))
+            Item::Folder
         } else {
-            // Item::File(File(str.split_once(" ").unwrap().0.parse().unwrap()))
             Item::File(str.split_once(" ").unwrap().0.parse().unwrap())
         }
     }
@@ -106,13 +88,13 @@ pub fn run() {
                 .split("\n")
                 .map(Item::from)
                 .for_each(|entry| match entry {
-                    Item::Folder(_) => {}
+                    Item::Folder => {}
                     Item::File(size) => session.add_file(size),
                 }),
         }
     }
 
-    const MAX_DIR_SIZE: u32 = 100_000;
+    // const MAX_DIR_SIZE: u32 = 100_000;
 
     const TOTAL_SPACE: u32 = 70_000_000;
     const REQUIRED_FREE: u32 = 30_000_000;
